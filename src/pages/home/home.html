@@ -7,32 +7,39 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <img src="assets/imgs/park.jpg"/>
+  <ion-card *ngFor="let proposal of proposals">
+    <img src="{{proposal.imgUrl}}" />
     <ion-card-content>
       <ion-card-title>
-        Ryan wants to build a Park
-        </ion-card-title>
+        {{proposal.title}}
+      </ion-card-title>
       <p>
-        123 W. 45th Street, New York City
+        {{proposal.description}}
       </p>
-      <button ion-button color="primary" full padding>
-        Vote
-      </button>
+      <div padding-top>
+        <button ion-button color="primary" full>
+          Vote
+        </button>
+      </div>
     </ion-card-content>
     <ion-row>
       <ion-col>
         <button ion-button icon-left clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
+          <div>{{proposal.likeCount}} Likes</div>
         </button>
       </ion-col>
       <ion-col offset-2>
         <button ion-button icon-left clear small>
           <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
+          <div>{{proposal.commentCount}} Comments</div>
         </button>
       </ion-col>
     </ion-row>
   </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="danger">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
