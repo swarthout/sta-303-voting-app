@@ -14,8 +14,7 @@ export class HomePage {
   }
 
   viewInfo(id) {
-    let modal = this.modalCtrl.create(PropInfoPage, { id });
-    modal.present();
+    this.navCtrl.push('PropInfoPage', { id });
   }
 
 }

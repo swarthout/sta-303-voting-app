@@ -10,8 +10,7 @@ import { PropInfoPage } from '../pages/prop-info/prop-info';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    PropInfoPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -20,8 +19,7 @@ import { PropInfoPage } from '../pages/prop-info/prop-info';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    PropInfoPage
+    HomePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
