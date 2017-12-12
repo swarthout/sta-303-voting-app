@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Proposal, ProposalProvider } from '../../providers/proposal/proposal'
 
 /**
  * Generated class for the PropInfoPage page.
@@ -14,12 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'prop-info.html',
 })
 export class PropInfoPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  proposal: Proposal
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public proposalProvider: ProposalProvider, public viewCtrl: ViewController) {
+    let id = navParams.get('id')
+    this.proposal = proposalProvider.getProposal(id)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PropInfoPage');
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss()
   }
 
 }
