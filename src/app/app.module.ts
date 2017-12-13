@@ -6,11 +6,16 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ProposalProvider } from '../providers/proposal/proposal';
 import { PropInfoPage } from '../pages/prop-info/prop-info';
+import { VotePage } from '../pages/vote/vote';
+import { CommentPage } from '../pages/comment/comment';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    TutorialPage,
+    VotePage,
+    CommentPage
   ],
   imports: [
     BrowserModule,
@@ -19,7 +24,9 @@ import { PropInfoPage } from '../pages/prop-info/prop-info';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    TutorialPage,
+    VotePage,
+    CommentPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

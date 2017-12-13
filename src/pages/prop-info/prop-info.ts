@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Proposal, ProposalProvider } from '../../providers/proposal/proposal'
+import { VotePage } from '../vote/vote';
+import { CommentPage } from '../comment/comment';
 
 /**
  * Generated class for the PropInfoPage page.
@@ -16,17 +18,36 @@ import { Proposal, ProposalProvider } from '../../providers/proposal/proposal'
 })
 export class PropInfoPage {
   proposal: Proposal
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public proposalProvider: ProposalProvider, public viewCtrl: ViewController) {
+  commentType: string
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public proposalProvider: ProposalProvider,
+    public modalCtrl: ModalController
+  ) {
     let id = navParams.get('id')
     this.proposal = proposalProvider.getProposal(id)
+    this.commentType = "support"
   }
 
   ionViewDidLoad() {
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss()
+  submitVote() {
+
+    let modal = this.modalCtrl.create(VotePage, { proposal: this.proposal });
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
+  }
+
+  submitComment() {
+    let modal = this.modalCtrl.create(CommentPage, { proposal: this.proposal });
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
   }
 
 }

@@ -7,20 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let proposal of proposals">
+  <ion-card *ngFor="let proposal of proposals" (click)="viewInfo(proposal.id)">
     <img src="{{proposal.imgUrl}}" />
     <ion-card-content>
       <ion-card-title>
         {{proposal.title}}
       </ion-card-title>
-      <p>
-        {{proposal.description}}
-      </p>
-      <div padding-top>
-        <button ion-button color="primary" full (click)="viewInfo(proposal.id)">
-          Vote
-        </button>
-      </div>
     </ion-card-content>
     <ion-row>
       <ion-col>

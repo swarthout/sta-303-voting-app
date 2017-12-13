@@ -7,14 +7,9 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{proposal.title}}</ion-title>
-    <!-- <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span showWhen="ios">Close</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons> -->
-
+    <ion-title>
+      Proposal
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,6 +20,66 @@
   </div>
 
   <div class="item-detail" padding>
+    <h2> {{proposal.title}} </h2>
     <p>{{proposal.description}}</p>
   </div>
+  <div padding-horizontal>
+    <button ion-button color="primary" full (click)="submitVote()">
+      Vote
+    </button>
+  </div>
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="checkbox"></ion-icon>
+        <div>{{proposal.voteCount}} Votes</div>
+      </button>
+    </ion-col>
+    <ion-col offset-2>
+      <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>{{proposal.commentCount}} Comments</div>
+      </button>
+    </ion-col>
+  </ion-row>
+  <div padding>
+    <ion-segment [(ngModel)]="commentType">
+      <ion-segment-button value="support">
+        Support
+      </ion-segment-button>
+      <ion-segment-button value="oppose">
+        Oppose
+      </ion-segment-button>
+      <ion-segment-button value="question">
+        Question
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="commentType">
+    <ion-list *ngSwitchCase="'support'">
+      <ion-item *ngFor="let comment of supportComments">
+        <h2>{{comment}}</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'oppose'">
+      <ion-item *ngFor="let comment of opposeComments">
+        <h2>{{comment}}</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'question'">
+        <ion-item *ngFor="let comment of questionComments">
+          <h2>{{comment}}</h2>
+        </ion-item>
+      </ion-list>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="submitComment()">
+      <ion-icon name="text"></ion-icon>
+    </button>
+  </ion-fab>
+
 </ion-content>
