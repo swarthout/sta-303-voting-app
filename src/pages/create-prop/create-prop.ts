@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { LocationProvider } from '../../providers/locations/locations';
 
 /**
  * Generated class for the CreatePropPage page.
@@ -14,12 +15,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create-prop.html',
 })
 export class CreatePropPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  showList: boolean = false
+  searchResults = []
+  searchString = ""
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public locationProvider: LocationProvider,
+    public viewCtrl: ViewController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreatePropPage');
+  }
+
+  getResults(searchString) {
+    if (searchString) {
+      this.locationProvider.getResults(searchString).subscribe(
+        (data: any) => {
+          this.searchResults = data.predictions.map(p => p.description)
+          this.showList = true
+        }
+      )
+    }
+    else {
+      this.showList = false
+    }
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss()
+  }
+
+  selectLocation(location) {
+    this.searchString = location
+    this.showList = false
   }
 
 }

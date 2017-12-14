@@ -9,6 +9,9 @@ import { PropInfoPage } from '../pages/prop-info/prop-info';
 import { VotePage } from '../pages/vote/vote';
 import { CommentPage } from '../pages/comment/comment';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { LocationProvider } from '../providers/locations/locations';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -30,7 +34,9 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProposalProvider
+    ProposalProvider,
+    LocationProvider,
+    HttpClient
   ]
 })
 export class AppModule {}

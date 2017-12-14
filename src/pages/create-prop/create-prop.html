@@ -6,13 +6,34 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>create-prop</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Create a Proposal</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-item>
+    <ion-label stacked>Title</ion-label>
+    <ion-textarea [(ngModel)]="title"></ion-textarea>
+  </ion-item>
 
+  <ion-item padding>
+    <ion-label stacked>Description</ion-label>
+    <ion-textarea [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+
+  <ion-searchbar animated="true" placeholder="Location" [(ngModel)]="searchString" (ionInput)="getResults(searchString)"></ion-searchbar>
+  <ion-list *ngIf="showList">
+    <ion-item *ngFor="let location of searchResults" (click)="selectLocation(location)">
+      {{ location }}
+    </ion-item>
+  </ion-list>
+
+  <div padding>
+    <button ion-button color="primary" full (click)="dismiss()">
+      Submit Proposal
+    </button>
+  </div>
 </ion-content>

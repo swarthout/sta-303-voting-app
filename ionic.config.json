@@ -2,5 +2,11 @@
   "name": "votingApp",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {},
+  "proxies": [
+    {
+      "path": "/googlemaps",
+      "proxyUrl": "https://maps.googleapis.com"
+    }
+  ]
 }

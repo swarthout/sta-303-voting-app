@@ -18,4 +18,8 @@ export class HomePage {
     this.navCtrl.push('PropInfoPage', { id });
   }
 
+  createProposal() {
+    this.navCtrl.push('CreatePropPage');
+  }
+
 }
