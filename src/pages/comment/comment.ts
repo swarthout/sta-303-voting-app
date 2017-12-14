@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'comment.html',
 })
 export class CommentPage {
-  comment: string
+  comment: object
   proposal: object
   constructor(
     public navCtrl: NavController,
@@ -22,6 +22,10 @@ export class CommentPage {
     public viewCtrl: ViewController
   ) {
     this.proposal = navParams.get("proposal")
+    this.comment = {
+      text: "",
+      type: ""
+    }
   }
 
   ionViewDidLoad() {

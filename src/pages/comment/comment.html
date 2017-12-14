@@ -27,10 +27,10 @@
   </div>
   <ion-item>
     <ion-label stacked>Your Comment</ion-label>
-    <ion-textarea [(ngModel)]="comment"></ion-textarea>
+    <ion-textarea [(ngModel)]="comment.text"></ion-textarea>
   </ion-item>
 
-  <ion-list radio-group [(ngModel)]="commentType">
+  <ion-list radio-group [(ngModel)]="comment.type">
     <ion-item>
       <ion-label>Support</ion-label>
       <ion-radio value="support"></ion-radio>

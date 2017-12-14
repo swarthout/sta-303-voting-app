@@ -9,9 +9,13 @@ import { PropInfoPage } from '../prop-info/prop-info'
   templateUrl: 'home.html'
 })
 export class HomePage {
-  proposals: Proposal[]
+  proposals: Proposal[] = []
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public proposalProvider: ProposalProvider) {
-    this.proposals = this.proposalProvider.getProposals()
+
+  }
+
+  ionViewDidLoad() {
+    this.proposalProvider.getProposals().then(proposals => this.proposals = proposals)
   }
 
   viewInfo(id) {
@@ -20,6 +24,13 @@ export class HomePage {
 
   createProposal() {
     this.navCtrl.push('CreatePropPage');
+  }
+
+  doRefresh(refresher) {
+    this.proposalProvider.getProposals().then(proposals => {
+      this.proposals = proposals
+      refresher.complete()
+    })
   }
 
 }

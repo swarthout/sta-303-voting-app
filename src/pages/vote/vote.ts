@@ -28,7 +28,7 @@ export class VotePage {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.support);
   }
 
 }

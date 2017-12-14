@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { LocationProvider } from '../../providers/locations/locations';
+import { Proposal, ProposalProvider } from '../../providers/proposal/proposal';
 
 /**
  * Generated class for the CreatePropPage page.
@@ -18,12 +19,16 @@ export class CreatePropPage {
   showList: boolean = false
   searchResults = []
   searchString = ""
+  searchPlace = ""
+  proposal: Partial<Proposal>
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public locationProvider: LocationProvider,
+    public proposalProvider: ProposalProvider,
     public viewCtrl: ViewController
   ) {
+    this.proposal = {}
   }
 
   ionViewDidLoad() {
@@ -32,9 +37,10 @@ export class CreatePropPage {
 
   getResults(searchString) {
     if (searchString) {
-      this.locationProvider.getResults(searchString).subscribe(
+      this.locationProvider.getResults(searchString).then(
         (data: any) => {
-          this.searchResults = data.predictions.map(p => p.description)
+          console.log(data)
+          this.searchResults = data
           this.showList = true
         }
       )
@@ -44,12 +50,16 @@ export class CreatePropPage {
     }
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss()
+  createProposal() {
+    this.proposal.location = this.searchString
+    this.proposal.imgUrl = "http://lorempixel.com/400/200/city"
+    this.proposalProvider.addProposal(this.proposal).then(() => this.viewCtrl.dismiss())
+
   }
 
   selectLocation(location) {
-    this.searchString = location
+    this.searchString = location.description
+    this.searchPlace = location.place_id
     this.showList = false
   }
 

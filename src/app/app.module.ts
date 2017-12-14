@@ -11,6 +11,7 @@ import { CommentPage } from '../pages/comment/comment';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { LocationProvider } from '../providers/locations/locations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

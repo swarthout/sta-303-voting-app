@@ -20,8 +20,12 @@
   </div>
 
   <div class="item-detail" padding>
-    <h2> {{proposal.title}} </h2>
+    <h2> {{proposal.title }} </h2>
     <p>{{proposal.description}}</p>
+    <ion-item no-lines>
+        <ion-icon color="primary" name="globe" item-start></ion-icon>
+          {{proposal.location}}
+      </ion-item>
   </div>
   <div padding-horizontal>
     <button ion-button color="primary" full (click)="submitVote()">
@@ -59,19 +63,19 @@
   <div [ngSwitch]="commentType">
     <ion-list *ngSwitchCase="'support'">
       <ion-item *ngFor="let comment of supportComments">
-        <h2>{{comment}}</h2>
+        <h2>{{comment.text}}</h2>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'oppose'">
       <ion-item *ngFor="let comment of opposeComments">
-        <h2>{{comment}}</h2>
+        <h2>{{comment.text}}</h2>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'question'">
         <ion-item *ngFor="let comment of questionComments">
-          <h2>{{comment}}</h2>
+          <h2>{{comment.text}}</h2>
         </ion-item>
       </ion-list>
   </div>

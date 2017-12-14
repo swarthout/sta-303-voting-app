@@ -17,7 +17,16 @@ import { CommentPage } from '../comment/comment';
   templateUrl: 'prop-info.html',
 })
 export class PropInfoPage {
-  proposal: Proposal
+  proposal: Proposal = {
+    id: 0,
+    title: "",
+    description: "",
+    imgUrl: "",
+    commentCount: 0,
+    comments: [],
+    location: "",
+    voteCount: 0
+  }
   commentType: string
   constructor(
     public navCtrl: NavController,
@@ -25,29 +34,54 @@ export class PropInfoPage {
     public proposalProvider: ProposalProvider,
     public modalCtrl: ModalController
   ) {
-    let id = navParams.get('id')
-    this.proposal = proposalProvider.getProposal(id)
     this.commentType = "support"
   }
 
   ionViewDidLoad() {
+    let id =this. navParams.get('id')
+    this.proposalProvider.getProposal(id).then(proposal => this.proposal = proposal)
   }
 
   submitVote() {
 
     let modal = this.modalCtrl.create(VotePage, { proposal: this.proposal });
     modal.onDidDismiss(data => {
-      console.log(data);
+      if (data) {
+        this.proposal.voteCount += 1
+      }
     });
     modal.present();
   }
 
   submitComment() {
     let modal = this.modalCtrl.create(CommentPage, { proposal: this.proposal });
-    modal.onDidDismiss(data => {
-      console.log(data);
+    modal.onDidDismiss(comment => {
+      if (comment) {
+        this.proposalProvider.addComment(this.proposal.id, comment).then(proposal => this.proposal = proposal)
+      }
     });
     modal.present();
+  }
+
+  get supportComments() {
+    if (this.proposal) {
+      return this.proposal.comments.filter((comment: any) => comment.type == "support")
+    }
+    return []
+  }
+
+  get opposeComments() {
+    if (this.proposal) {
+      return this.proposal.comments.filter((comment: any) => comment.type == "oppose")
+    }
+    return []
+  }
+
+  get questionComments() {
+    if (this.proposal) {
+      return this.proposal.comments.filter((comment: any) => comment.type == "question")
+    }
+    return []
   }
 
 }

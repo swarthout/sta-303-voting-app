@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map'
-
+declare var google;
 /*
   Generated class for the LocationsProvider provider.
 
@@ -11,18 +11,24 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class LocationProvider {
   apiKey = "AIzaSyBWJZ_N-NETFaGpjDgT3As8JOCZiSyO6EE"
-  baseUrl = "/googlemaps/maps/api/place/autocomplete/json"
+  autoCompleteUrl = "https://maps.googleapis.com/maps/api/place/autocomplete/json"
   labelAttribute = "description";
+  autoCompleteService: any;
   constructor(public http: HttpClient) {
     console.log('Hello LocationsProvider Provider');
+    this.autoCompleteService = new google.maps.places.AutocompleteService();
   }
 
   getResults(keyword: string) {
-    return this.http.get(this.baseUrl, {
-      params: {
-        "input": keyword,
-        "key": this.apiKey
-      }
+    return new Promise((resolve, reject) => {
+      this.autoCompleteService.getQueryPredictions({
+        input: keyword
+      }, (predictions, status) => {
+        if (status != google.maps.places.PlacesServiceStatus.OK) {
+          reject(status)
+        }
+        resolve(predictions)
+      })
     })
   }
 
